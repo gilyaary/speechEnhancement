@@ -12,14 +12,15 @@ import com.lg.audio.base.TransformResult;
 
 public class Duet_1 {
 	
-	static final int SAMPLING_RATE = 8000;
-	static int windowSize = 256 * 2;//(int)( 4096 / 4 ) ;
-	static int skipSize =   256 * 1;//(int)( 4096 / 8 );
+	static final int SAMPLING_RATE = 50000;
+	static int windowSize = (int)( 4096 /2 ) ;
+	static int skipSize =   (int)( 4096 /2 );
+	
 	public static final int GAIN = 5;
 	static String PATH = "/AudioSamples/";
 	//static String file1 = PATH + "GIL_AMIT.wav";
-	static String file1 = PATH + "eric.wav";
-	static String file2 = PATH + "amy.wav";
+	static String file1 = PATH + "amy.wav";
+	static String file2 = PATH + "eric.wav";
 	
 	public static void main (String [] args){
 		Duet_1 duet = new Duet_1();
@@ -43,7 +44,7 @@ public class Duet_1 {
 		
 		//here we calculate for each spectral element (FFT Component) the time shift and amplitude difference
 		//we then plot the results for all spectral elements on a 3D plot
-		HistogramHelper.calculateAndShowHistogram(spectrums, 0, 5000, 1200, 800);
+		HistogramHelper.calculateAndShowHistogram(spectrums, 0, 8000, 1200, 800, true);
 		//{ampRatio, timeDiffMicrosec, freq}
 		
 		//use this predicate to define the samples in each frame as belonging to a cluster 
@@ -52,8 +53,9 @@ public class Duet_1 {
 			double ampRatio = args[0];
 			int timeDiffMicrosec = (int) args[1];
 			int freq = (int)args[2];
+			//timeDiffMicrosec > 150 && 
 			
-			return true;
+			return  ampRatio >= -0.30 && ampRatio <=  -0.1 && timeDiffMicrosec < -50 && timeDiffMicrosec > -200 ; //timeDiffMicrosec > 0;
 		};
 		
 		//play the separated channel

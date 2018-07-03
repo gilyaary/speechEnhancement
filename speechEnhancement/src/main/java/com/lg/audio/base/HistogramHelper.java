@@ -11,9 +11,9 @@ import org.jzy3d.plot3d.builder.Mapper;
 public class HistogramHelper {
 	
 	public static void calculateAndShowHistogram(List<TransformResult[]>allTransformResults) {
-		calculateAndShowHistogram(allTransformResults,0, 8000, 1200, 800);
+		calculateAndShowHistogram(allTransformResults,0, 8000, 1200, 800, true);
 	}
-	public static double[][] calculateAndShowHistogram(List<TransformResult[]>allTransformResults, double minFreq, double maxFreq, int width, int height) {
+	public static double[][] calculateAndShowHistogram(List<TransformResult[]>allTransformResults, double minFreq, double maxFreq, int width, int height, boolean smooth) {
 		
 		//define these
 		int bin_count = 40;
@@ -67,8 +67,8 @@ public class HistogramHelper {
 				int binIndexTimeDiff = (int) (  (relativeTimeDiff-minXTimeDiff) / binSizeTimeDiff );
 				
 				if( freq >= minFreq && freq <= maxFreq){
-					if( binIndex >= 0 && binIndex < bin_count){ //freq > 1400 && freq < 1500 && 
-						if(binIndexTimeDiff >= 0 && binIndexTimeDiff < bin_count_time_diff && freq > 300 && freq < 4000){ // &&  freq > 250 && freq < 2000
+					if( binIndex >= 0 && binIndex < bin_count){ // 
+						if(binIndexTimeDiff >= 0 && binIndexTimeDiff < bin_count_time_diff ){ 
 							double weight = Math.abs(ampR * ampL) ;
 							y[binIndex] += weight*weight ;
 							yy[binIndex] += weight*weight ;
@@ -88,7 +88,7 @@ public class HistogramHelper {
 		
 		displayHist(x, y, "Total Amplitude Ratios");
 		displayHist(xTimeDiff, yTimeDiff, "Total TimeDiff");
-		display3dHist(yAmpRatioAndTime, true, title, width, height);
+		display3dHist(yAmpRatioAndTime, smooth, title, width, height);
 		
 		histogramCount ++;
 		//System.out.printf("%.2f, %.2f, %.2f%n", totalR, totalL, totalR/totalL);

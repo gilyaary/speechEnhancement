@@ -31,7 +31,7 @@ public class _3dTest {
 				surface.setFaceDisplayed(true);
 				surface.setWireframeDisplayed(false);
 				surface.setWireframeColor(Color.BLACK);
-				
+								
 
 				// Create a chart and add the surface
 				Chart chart = new AWTChart(Quality.Advanced);
